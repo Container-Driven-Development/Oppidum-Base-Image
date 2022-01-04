@@ -1,2 +1,3 @@
-# Oppidum-Base-Image
-Base image for https://github.com/elmariofredo/Oppidum
+# DevOps Oppidum Blueprint
+
+DevOps base image for https://github.com/elmariofredo/Oppidum
