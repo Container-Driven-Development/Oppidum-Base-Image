@@ -1,52 +1,26 @@
-# TODO:
+# NOTES:
 # 1. Create PAT with `read:packages` and `write:packages` see https://docs.github.com/en/free-pro-team@latest/packages/guides/migrating-to-github-container-registry-for-docker-images#authenticating-with-the-container-registry
 # 2. Create CR_PAT variable under Settings / Secrets
 
 name: BUILD Docker
 
 on:
-  push:
-
-    # Publish `v1.2.3` tags as releases.
-    tags:
-      - v*
-
+  release:
+    types:
+    - created
 
 env:
   FETCHER_IMAGE_VERSION: 3.15.0
   BASE_IMAGE_VERSION: commit-f2d623ca9d270c2ce8560d2ca0f9ce71b105aff2 # See https://hub.docker.com/r/gitpod/workspace-base/tags
-  
-  # NOTE: DO NOT CHANGE THIS IS TMP IMAGE NAME
-  IMAGE_NAME: image
 
 jobs:
-  # Run tests.
-  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run tests
-        run: |
-          docker build . \
-           --build-arg FETCHER_IMAGE_VERSION=${FETCHER_IMAGE_VERSION} \
-           --build-arg BASE_IMAGE_VERSION=${BASE_IMAGE_VERSION} \
-           --file Dockerfile --tag $IMAGE_NAME
-  # Push image to GitHub Packages.
-  # See also https://docs.docker.com/docker-hub/builds/
-  push:
-    # Ensure test job passes before pushing image.
-    needs: test
-
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Build image
+      - name: Run build
         run: |
           docker build . \
            --build-arg FETCHER_IMAGE_VERSION=${FETCHER_IMAGE_VERSION} \
@@ -54,7 +28,6 @@ jobs:
            --file Dockerfile --tag $IMAGE_NAME
 
       - name: Log into GitHub Container Registry
-      # TODO: Create a PAT with `read:packages` and `write:packages` scopes and save it as an Actions secret `CR_PAT`
         run: echo "${{ secrets.CR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Push image to GitHub Container Registry

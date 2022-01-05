@@ -13,6 +13,7 @@ ENV KUSTOMIZE_VERSION=v4.4.1
 ENV KUSTIMIZE_HELM_PLUGIN=v0.9.2
 ENV STARSHIP_VERSION=v1.1.1
 ENV DOCKER_VERSION=20.10.9
+ENV TERRAFORM_VERSION=1.1.2
 
 RUN mkdir /tmp/completion
 
@@ -26,18 +27,24 @@ RUN mkdir -p /root/.config/kustomize/plugin/helm.kustomize.mgoltzsche.github.com
   wget -O- https://github.com/mgoltzsche/helm-kustomize-plugin/releases/download/${KUSTIMIZE_HELM_PLUGIN}/helm-kustomize-plugin > /root/.config/kustomize/plugin/helm.kustomize.mgoltzsche.github.com/v1/chartrenderer/ChartRenderer && \
   chmod u+x /root/.config/kustomize/plugin/helm.kustomize.mgoltzsche.github.com/v1/chartrenderer/ChartRenderer
 
-# Gosu https://github.com/tianon/gosu/blob/master/hub/Dockerfile.alpine
-# TODO
-
 ADD https://raw.githubusercontent.com/perlpunk/shell-completions/6af9f7cd5db837680aef453ca6ded1a3dd219eae/zsh/_jq /tmp/completion/_jq
 
 # Starship https://github.com/starship/starship
 RUN wget -O- https://github.com/starship/starship/releases/download/${STARSHIP_VERSION}/starship-x86_64-unknown-linux-gnu.tar.gz | tar xvz -C /usr/local/bin/
 RUN chmod +x /usr/local/bin/starship
 
+# Terrraform https://github.com/starship/starship
+RUN wget -O- https://github.com/starship/starship/releases/download/${STARSHIP_VERSION}/starship-x86_64-unknown-linux-gnu.tar.gz | tar xvz -C /usr/local/bin/
+RUN chmod +x /usr/local/bin/starship
+
 # Docker https://github.com/moby/moby
 RUN wget -O- https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz | tar xvz -C /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker
+
+# Terraform https://github.com/hashicorp/terraform
+RUN wget -O- https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+RUN unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /tmp
+RUN chmod +x /tmp/terraform
 
 # AWS CLI
 RUN wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
@@ -70,6 +77,7 @@ COPY --from=FETCHER /usr/local/bin/starship /usr/local/bin/starship
 COPY --from=FETCHER /usr/local/bin/docker/docker /usr/local/bin/docker
 COPY --from=FETCHER /usr/local/aws-cli/ /usr/local/aws-cli/
 COPY --from=FETCHER /tmp/aws-cli-bin/ /usr/local/bin/
+COPY --from=FETCHER /tmp/terraform /usr/local/bin/
 
 RUN chsh -s /usr/bin/zsh ${RUN_AS_USER}
 
