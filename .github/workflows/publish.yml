@@ -15,6 +15,7 @@ on:
 env:
   # TODO: Change variable to your image's name.
   IMAGE_NAME: oppidum-devops-blueprint
+  BASE_IMAGE_VERSION: 3.15.0
 
 jobs:
   # Run tests.
