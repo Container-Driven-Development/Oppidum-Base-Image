@@ -57,6 +57,7 @@ RUN chmod 644 /tmp/completion/*
 FROM gitpod/workspace-base:${BASE_IMAGE_VERSION}
 
 ENV RUN_AS_USER=gitpod
+ENV SHELL=zsh
 
 USER root
 
