@@ -30,15 +30,10 @@ jobs:
 
       - name: Run tests
         run: |
-          if [ -f docker-compose.test.yml ]; then
-            docker-compose --file docker-compose.test.yml build
-            docker-compose --file docker-compose.test.yml run sut
-          else
-            docker build . \
-              --build-arg FETCHER_IMAGE_VERSION=${FETCHER_IMAGE_VERSION} \
-              --build-arg BASE_IMAGE_VERSION=${BASE_IMAGE_VERSION} \
-              --file Dockerfile --tag $IMAGE_NAME
-          fi
+          docker build . \
+           --build-arg FETCHER_IMAGE_VERSION=${FETCHER_IMAGE_VERSION} \
+           --build-arg BASE_IMAGE_VERSION=${BASE_IMAGE_VERSION} \
+           --file Dockerfile --tag $IMAGE_NAME
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
   push:

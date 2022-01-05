@@ -1,5 +1,5 @@
-# ARG FETCHER_IMAGE_VERSION=3.15.0
-# ARG BASE_IMAGE_VERSION=commit-f2d623ca9d270c2ce8560d2ca0f9ce71b105aff2
+ARG FETCHER_IMAGE_VERSION
+ARG BASE_IMAGE_VERSION
 
 # Based on https://github.com/gitpod-io/workspace-images/blob/master/base/Dockerfile and https://github.com/gitpod-io/workspace-images/blob/master/full/Dockerfile
 
