@@ -48,7 +48,9 @@ RUN apk add --no-cache \
   starship \
   terraform \
   musl \
-  libc6-compat 
+  libc6-compat \
+  libgcc \ 
+  libstdc++
 
 ### PIP ###
 RUN pip3 install --no-cache-dir awscli
