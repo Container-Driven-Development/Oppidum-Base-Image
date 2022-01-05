@@ -46,7 +46,9 @@ RUN apk add --no-cache \
   py3-pip \
   docker \
   starship \
-  terraform
+  terraform \
+  musl \
+  libc6-compat 
 
 ### PIP ###
 RUN pip3 install --no-cache-dir awscli
