@@ -22,10 +22,13 @@ jobs:
 
       - name: Run build
         run: |
+          IMAGE_NAME=ghcr.io/$(echo "${{ github.repository }}" | tr '[A-Z]' '[a-z]' )
+          # Strip git ref prefix from version
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
           docker build . \
            --build-arg FETCHER_IMAGE_VERSION=${FETCHER_IMAGE_VERSION} \
            --build-arg BASE_IMAGE_VERSION=${BASE_IMAGE_VERSION} \
-           --file Dockerfile --tag $IMAGE_NAME
+           --file Dockerfile --tag $IMAGE_NAME:$VERSION
 
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.CR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
