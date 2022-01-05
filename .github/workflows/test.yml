@@ -2,7 +2,7 @@
 # 1. Create PAT with `read:packages` and `write:packages` see https://docs.github.com/en/free-pro-team@latest/packages/guides/migrating-to-github-container-registry-for-docker-images#authenticating-with-the-container-registry
 # 2. Create CR_PAT variable under Settings / Secrets
 
-name: TEST Docker
+name: TEST
 
 on:
   push:
@@ -17,8 +17,6 @@ env:
   IMAGE_NAME: image
 
 jobs:
-  # Run tests.
-  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
     runs-on: ubuntu-latest
 

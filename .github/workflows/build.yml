@@ -2,7 +2,7 @@
 # 1. Create PAT with `read:packages` and `write:packages` see https://docs.github.com/en/free-pro-team@latest/packages/guides/migrating-to-github-container-registry-for-docker-images#authenticating-with-the-container-registry
 # 2. Create CR_PAT variable under Settings / Secrets
 
-name: BUILD Docker
+name: BUILD
 
 on:
   release:
@@ -14,7 +14,7 @@ env:
   BASE_IMAGE_VERSION: commit-f2d623ca9d270c2ce8560d2ca0f9ce71b105aff2 # See https://hub.docker.com/r/gitpod/workspace-base/tags
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
