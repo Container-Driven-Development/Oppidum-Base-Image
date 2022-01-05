@@ -42,7 +42,7 @@ RUN wget -O- https://download.docker.com/linux/static/stable/x86_64/docker-${DOC
 RUN chmod +x /usr/local/bin/docker
 
 # Terraform https://github.com/hashicorp/terraform
-RUN wget -O- https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+RUN wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 RUN unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /tmp
 RUN chmod +x /tmp/terraform
 
