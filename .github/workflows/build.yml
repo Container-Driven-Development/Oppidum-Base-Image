@@ -41,5 +41,4 @@ jobs:
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
           echo IMAGE_NAME=$IMAGE_NAME
           echo VERSION=$VERSION
-          docker tag image $IMAGE_NAME:$VERSION
           docker push $IMAGE_NAME:$VERSION
