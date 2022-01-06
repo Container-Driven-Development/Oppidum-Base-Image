@@ -5,8 +5,6 @@ ARG BASE_IMAGE_VERSION
 
 FROM alpine:${FETCHER_IMAGE_VERSION} as FETCHER
 
-LABEL org.opencontainers.image.source https://github.com/Container-Driven-Development/Oppidum-DevOps-Blueprint
-
 RUN apk --no-cache add unzip
 
 USER root
@@ -57,6 +55,8 @@ RUN chmod 644 /tmp/completion/*
 
 ################################################
 FROM gitpod/workspace-base:${BASE_IMAGE_VERSION}
+
+LABEL org.opencontainers.image.source https://github.com/Container-Driven-Development/Oppidum-DevOps-Blueprint
 
 ENV RUN_AS_USER=gitpod
 ENV SHELL=zsh
