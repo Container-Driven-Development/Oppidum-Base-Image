@@ -42,3 +42,6 @@ jobs:
           echo IMAGE_NAME=$IMAGE_NAME
           echo VERSION=$VERSION
           docker push $IMAGE_NAME:$VERSION
+          # Push latest as well for caching purposes
+          docker tag $IMAGE_NAME:$VERSION $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:latest
