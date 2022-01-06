@@ -5,6 +5,8 @@ ARG BASE_IMAGE_VERSION
 
 FROM alpine:${FETCHER_IMAGE_VERSION} as FETCHER
 
+LABEL org.opencontainers.image.source https://github.com/Container-Driven-Development/Oppidum-DevOps-Blueprint
+
 RUN apk --no-cache add unzip
 
 USER root
